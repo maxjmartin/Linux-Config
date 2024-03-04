@@ -7,8 +7,6 @@ I refuse to install RPM Fusion on the machine.  Everything should be a ToolBox, 
 
 If pCloud is not installed in the directed folder, the application will not synch.  I think this is an SELinux thing.  haven't figured that out yet.  
 
-VS Code and Edge repos installed due to requirements for my development environment.  Though admittedly Edge can be handled through a Distrobox export.  Choose one and not the other.  Else Edge will crash randomly, and not start back up.  
-
 Note that the Wayland support configuration for VS Code, is only needed for Gnome.  
 
 ## Installation partitioning.
@@ -67,7 +65,7 @@ gpgcheck=0
 ##  Place the MS Key in /etc/pki/rpm-gpg.
 ```
 cd /etc/pki/rpm-gpg
-wget https://packages.microsoft.com/keys/microsoft.asc
+sudo wget https://packages.microsoft.com/keys/microsoft.asc
 ```
 
 ##  Install the VS Code Repo:
@@ -109,13 +107,6 @@ systemctl reboot
 
 ## Confirm KVM installation.
 `sudo virt-host-validate qemu`
-
-## Install MS Edge, and reboot.
-```
-sudo rpm-ostree install microsoft-edge-stable microsoft-edge-beta microsoft-edge-dev
-
-systemctl reboot
-```
 
 ## Pin the initial setup, and the layered setup.
 ```
