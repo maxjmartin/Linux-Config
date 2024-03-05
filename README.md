@@ -1,6 +1,8 @@
 # Fedora SilverBlue / Kinoite G14 2022 Install
 System: ROG Zephyrus G14 GA402RJ
 
+Most of instruction came from (Asus Linux)[asus-linux.org].
+
 The machine is AMD bases, so no custom kernel will need to be installed.  
 
 I refuse to install RPM Fusion on the machine.  Everything should be a ToolBox, DistroBox or a Flatpak.  This setup will describe how to configure a Distrobox or Flatpak to handle this.  Unless stated otherwise all RPMs should be managed in either environment.  
