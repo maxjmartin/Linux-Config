@@ -1,7 +1,7 @@
 # Fedora SilverBlue / Kinoite G14 2022 Install
 System: ROG Zephyrus G14 GA402RJ
 
-Most of instruction came from (Asus Linux)[asus-linux.org].
+Most of instruction came from [Asus Linux](asus-linux.org).
 
 The machine is AMD bases, so no custom kernel will need to be installed.  
 
