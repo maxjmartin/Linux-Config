@@ -1,4 +1,4 @@
-# Fedora SilverBlue / Kinoite G14 2022 Install
+# Fedora SilverBlue & Kinoite G14 2022 Install
 System: ROG Zephyrus G14 GA402RJ
 
 Most of instruction came from [Asus Linux](asus-linux.org).
