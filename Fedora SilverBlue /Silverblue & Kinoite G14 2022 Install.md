@@ -164,7 +164,7 @@ AutomaticLogin=[YourUsername]
 ```
 
 ## Configure Distrobox
-Place in `~/.config/distrobox`
+Place in `~/.config/distrobox/distrobox.conf`
 ```
 container_manager="podman"
 container_image_default="registry.fedoraproject.org/fedora-toolbox:39"
