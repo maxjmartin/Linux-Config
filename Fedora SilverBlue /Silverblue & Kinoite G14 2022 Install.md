@@ -25,7 +25,7 @@ LVM encrypted
 `gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"`
 
 ## To run the update.
-`rpm-ostree upgrade --reboot`
+`sudo rpm-ostree upgrade --reboot`
 
 ## Open a terminal window and enter, to configure the `asusctl` and `supergfxctl` repos.
 `sudo nano /etc/yum.repos.d/asus.repo`
@@ -77,7 +77,10 @@ sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.m
 
 ## Install the following packages: (libosinfo) Already present in Gnome.
 ```
-sudo rpm-ostree install asusctl supergfxctl asusctl-rog-gui distrobox qemu-kvm libvirt virt-install virt-manager virt-viewer edk2-ovmf swtpm qemu-img guestfs-tools libosinfo virtio-win gnome-tweaks gnome-shell-extension-pop-shell gnome-shell-extension-pop-shell-shortcut-overrides gnome-shell-extension-user-theme gnome-shell-extension-dash-to-dock code code-insiders --reboot
+sudo rpm-ostree install asusctl supergfxctl asusctl-rog-gui distrobox \
+qemu-kvm libvirt virt-install virt-manager virt-viewer edk2-ovmf swtpm qemu-img guestfs-tools libosinfo virtio-win \
+gnome-tweaks gnome-shell-extension-pop-shell gnome-shell-extension-pop-shell-shortcut-overrides gnome-shell-extension-user-theme gnome-shell-extension-dash-to-dock \
+code code-insiders --reboot
 
 systemctl reboot
 ```
@@ -99,6 +102,11 @@ for drv in qemu interface network nodedev nwfilter secret storage; do \
 done
 
 systemctl reboot
+```
+
+## Enable RPM Fusion Repo
+```
+sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm --reboot
 ```
 
 ## Add yourself to the libvirt group.
