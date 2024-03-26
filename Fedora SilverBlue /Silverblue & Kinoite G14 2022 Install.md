@@ -81,8 +81,6 @@ sudo rpm-ostree install asusctl supergfxctl asusctl-rog-gui distrobox \
 qemu-kvm libvirt virt-install virt-manager virt-viewer edk2-ovmf swtpm qemu-img guestfs-tools libosinfo virtio-win \
 gnome-tweaks gnome-shell-extension-pop-shell gnome-shell-extension-pop-shell-shortcut-overrides gnome-shell-extension-user-theme gnome-shell-extension-dash-to-dock \
 code code-insiders --reboot
-
-systemctl reboot
 ```
 
 ## Enable `supergfxctl` and set graphics mode.
