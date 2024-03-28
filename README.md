@@ -13,7 +13,7 @@ VS Code and Edge repos installed due to requirements for my development environm
 
 Use either Flathub or Fedora Flatpaks as you see fit, though. Fedora Flatpaks run on Fedora. Flathub will be hit or miss, and can affect your system resources.  
 
-Note update frequency concerns between the two Flathub and Fedora Flatpaks, can be quite different.  Because of this I will be defaulting to Flathub, then Fedora Flatpaks.  Otherwise a Fedora Distrobox can used.  
+Update frequency concerns between the two Flathub and Fedora Flatpaks, can be quite different.  Because of this I will be defaulting to Flathub, then Fedora Flatpaks.  Otherwise a Fedora Distrobox can used.  
 
 Note that the Wayland support configuration for VS Code, is only needed for Gnome.  
 
@@ -126,7 +126,13 @@ gnome-tweaks gnome-shell-extension-pop-shell gnome-shell-extension-pop-shell-sho
 ```
 
 ## Add yourself to the libvirt group.
-`sudo usermod -a -G libvirt $USER`
+- Per [documentation](https://docs.fedoraproject.org/en-US/fedora-silverblue/troubleshooting/#_unable_to_add_user_to_group), the following steps are required.
+```
+grep -E '^kvm:' /usr/lib/group | sudo tee -a /etc/group && \
+grep -E '^libvirt:' /usr/lib/group | sudo tee -a /etc/group && \
+sudo usermod -a -G libvirt,kvm $USER
+```
+- Then logout and log back in.
 
 ## Enable Systemd resources for Virt Manager.
 ```
@@ -170,7 +176,8 @@ Create a `~/.config/code-flags.conf` file. Then insert in the file `--enable-fea
 
 # Optional Steps
 
-<!-- ## Auto Update the OS
+## Auto Update the OS
+### (Note! There is an error stating that the rpm-ostreed.service is not running.  Yet the machine still seems to auto stage any updates, that Plasa Dicover identifies.  Havn't tried this in Gnome so I can't comment there.)
 `sudo nano /etc/rpm-ostreed.conf`
 - Change the contents of the file to: (comments added for clarity for future reference)
 ```
@@ -180,19 +187,25 @@ Create a `~/.config/code-flags.conf` file. Then insert in the file `--enable-fea
 # The 'apply' option is the same as stage but also initiates the reboot to the new ver>
 
 [Daemon]
-AutomaticUpdatePolicy=stage
-#IdleExitTimeout=60
+AutomaticUpdatePolicy=apply
+IdleExitTimeout=60
 #LockLayering=false
 ```
 - Then configure the timer.
 ```
 sudo systemctl reload rpm-ostreed && \
-systemctl reboot
+sudo systemctl enable --now rpm-ostree-update.service && \
+sudo systemctl enable --now rpm-ostreed-automatic.timer
+```  
+Given the error, this command will not resolve the issue.
 ```
+sudo systemctl enable --now rpm-ostreed.service
+```
+
 - On Reboot run:
-`sudo systemctl enable rpm-ostreed-automatic.timer --now`
+`sudo systemctl enable --now rpm-ostreed-automatic.timer`
 - Finally check that the timer and settings are correct.
-`rpm-ostree status` -->
+`rpm-ostree status`
 
 ## Gnome Auto Login
 - `sudo nano /etc/gdm/custom.conf`
@@ -250,9 +263,24 @@ systemctl --user daemon-reload && systemctl --user enable --now distrobox-upgrad
 
 
 ## Enable RPM Fusion Repo
+Note adding RPM Fusion and the Gstreamer codecs is unneeded if the Fluendo Codec RPM has been installed.  
 ```
 sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm --reboot
 ```
+
+### Add Gstreamer Codecs
+```
+sudo dnf install @multimedia @sound-and-video ffmpeg-libs gstreamer1-plugins-{bad-*,good-*,base} gstreamer1-plugin-openh264 gstreamer1-libav lame*
+```
+Alternativley you could also use:
+```
+dnf install gstreamer1-devel gstreamer1-plugins-base-tools gstreamer1-doc gstreamer1-plugins-base-devel gstreamer1-plugins-good gstreamer1-plugins-good-extras gstreamer1-plugins-ugly gstreamer1-plugins-bad-free gstreamer1-plugins-bad-free-devel gstreamer1-plugins-bad-free-extras
+```
+
+## Pin the latest OStree Branch
+`sudo ostree admin pin 0`
+
+By pinning the last branch after the codec installation.  We can esure the previous confiurations made are retained.  
 
 ## Create a Sandboxed Fedora Box
 `distrobox create --unshare-all --name sand_fox.`
@@ -266,15 +294,6 @@ distrobox create --name tumbleSUSE --unshare-all --image registry.opensuse.org/o
 ##   Install RPM Fusion within a Distrobox App
 ```
 sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-```
-
-### Add Gstreamer Codecs
-```
-sudo dnf install @multimedia @sound-and-video ffmpeg-libs gstreamer1-plugins-{bad-*,good-*,base} gstreamer1-plugin-openh264 gstreamer1-libav lame*
-```
-Alternativley you could also use:
-```
-dnf install gstreamer1-devel gstreamer1-plugins-base-tools gstreamer1-doc gstreamer1-plugins-base-devel gstreamer1-plugins-good gstreamer1-plugins-good-extras gstreamer1-plugins-ugly gstreamer1-plugins-bad-free gstreamer1-plugins-bad-free-devel gstreamer1-plugins-bad-free-extras
 ```
 
 ## Link to MicroSoft Linux Repos
