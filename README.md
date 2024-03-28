@@ -11,7 +11,7 @@ If pCloud is not installed in the directed folder, the application will not sync
 
 VS Code and Edge repos installed due to requirements for my development environment.  Though admittedly Edge can be handled through a Distrobox export.  Choose one and not the other.  Else Edge will crash randomly, and not start back up.  Not certain why this is.  But some programs will not export from a Fedora image Distrobox either.  But they will from an openSUSE box.
 
-Use either Flathub or Fedora Flatpaks as you see fit, though. Fedora Flatpaks run on Fedora. Flathub will be hit or miss, and can affect your system resources.  
+Use either Flathub or Fedora Flatpaks as you see fit, though. Fedora Flatpaks run on Fedora. Flathub will be hit or miss as to what OS they are running on, and can affect your system resources.  
 
 Update frequency concerns between the two Flathub and Fedora Flatpaks, can be quite different.  Because of this I will be defaulting to Flathub, then Fedora Flatpaks.  Otherwise a Fedora Distrobox can used.  
 
