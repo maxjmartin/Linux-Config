@@ -177,7 +177,7 @@ Create a `~/.config/code-flags.conf` file. Then insert in the file `--enable-fea
 # Optional Steps
 
 ## Auto Update the OS
-### (Note! There is an error stating that the rpm-ostreed.service is not running.  Yet the machine still seems to auto stage any updates, that Plasa Dicover identifies.  Havn't tried this in Gnome so I can't comment there.)
+### (Note! There is an error stating that the rpm-ostreed.service is not running.  Yet the machine still seems to auto stage any updates, that Plasma Dicover identifies.  Havn't tried this in Gnome so I can't comment there.)
 `sudo nano /etc/rpm-ostreed.conf`
 - Change the contents of the file to: (comments added for clarity for future reference)
 ```
