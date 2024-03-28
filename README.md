@@ -170,7 +170,7 @@ Create a `~/.config/code-flags.conf` file. Then insert in the file `--enable-fea
 
 # Optional Steps
 
-## Auto Update the OS
+<!-- ## Auto Update the OS
 `sudo nano /etc/rpm-ostreed.conf`
 - Change the contents of the file to: (comments added for clarity for future reference)
 ```
@@ -192,7 +192,7 @@ systemctl reboot
 - On Reboot run:
 `sudo systemctl enable rpm-ostreed-automatic.timer --now`
 - Finally check that the timer and settings are correct.
-`rpm-ostree status`
+`rpm-ostree status` -->
 
 ## Gnome Auto Login
 - `sudo nano /etc/gdm/custom.conf`
