@@ -156,7 +156,7 @@ done \
 
 ## Install Android Studio.
 - Download app zip file file at: https://developer.android.com/studio?gad_source=1&gclid=EAIaIQobChMIoaOfhrvahAMVHQ6tBh0YuQjpEAAYASAAEgLI5PD_BwE&gclsrc=aw.ds
-- Place the expanded folder in the `~/.local/share/applications` directory.
+- Place the extracted folder in the `~/.local/share/applications` directory.
 - Execute the studio.sh file, located in the app's bin folder.
 - Customize the install of the Android SDK to `~/.local/share/applications/Android/SDK`
 - Once app launches in settings select 'Create Desktop Entry...' to add the app to the startup menu.
@@ -187,7 +187,7 @@ Create a `~/.config/code-flags.conf` file. Then insert in the file `--enable-fea
 # The 'apply' option is the same as stage but also initiates the reboot to the new ver>
 
 [Daemon]
-AutomaticUpdatePolicy=apply
+AutomaticUpdatePolicy=stage
 IdleExitTimeout=60
 #LockLayering=false
 ```
