@@ -170,6 +170,30 @@ Create a `~/.config/code-flags.conf` file. Then insert in the file `--enable-fea
 
 # Optional Steps
 
+## Auto Update the OS
+`sudo nano /etc/rpm-ostreed.conf`
+- Change the contents of the file to: (comments added for clarity for future reference)
+```
+# The 'none' option disables automatic updates. This is the default policy.
+# The 'check' option downloads enough metadata to display available updates with rpm-o>
+# The 'stage' option downloads, unpacks and stages the update which will be finalized >
+# The 'apply' option is the same as stage but also initiates the reboot to the new ver>
+
+[Daemon]
+AutomaticUpdatePolicy=stage
+#IdleExitTimeout=60
+#LockLayering=false
+```
+- Then configure the timer.
+```
+sudo systemctl reload rpm-ostreed && \
+systemctl reboot
+```
+- On Reboot run:
+`sudo systemctl enable rpm-ostreed-automatic.timer --now`
+- Finally check that the timer and settings are correct.
+`rpm-ostree status`
+
 ## Gnome Auto Login
 - `sudo nano /etc/gdm/custom.conf`
 - Under the `[daemon]` section, add or modify the following lines:
