@@ -114,7 +114,7 @@ sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.m
 ## Install the following packages: (libosinfo) Already present in Gnome.
 ```
 sudo rpm-ostree install \
-qemu-kvm libvirt virt-install virt-manager virt-viewer libosinfo edk2-ovmf swtpm qemu-img guestfs-tools virtio-win \
+qemu libvirt virt-manager virt-viewer libosinfo edk2-ovmf swtpm guestfs-tools \
 code code-insiders microsoft-edge-stable \
 distrobox \
 --reboot
