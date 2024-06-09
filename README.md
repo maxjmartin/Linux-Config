@@ -33,13 +33,19 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 ```
 
 ## Check if update available.
-`rpm-ostree upgrade --check`
+```
+rpm-ostree upgrade --check
+```
 
 ## To run the update.
-`sudo rpm-ostree upgrade --reboot`
+```
+sudo rpm-ostree upgrade --reboot
+```
 
 ## Open a terminal window and enter, to configure the `asusctl` and `supergfxctl` repos.
-`sudo nano /etc/yum.repos.d/asus.repo`
+```
+sudo nano /etc/yum.repos.d/asus.repo
+```
 
 ## Then paste in the following with the key combination 'control + shift + v':
 ```
@@ -56,7 +62,7 @@ enabled_metadata=1
 ```
 
 ## Install the initial hardware layer.
-- `sudo rpm-ostree install asusctl supergfxctl asusctl-rog-gui --reboot`
+- ```sudo rpm-ostree install asusctl supergfxctl asusctl-rog-gui --reboot```
 - Add ROG-GUI to the autostart list.
 - In ROG-GUI settings, set check start minimized.
 - Enable supergfxctl and set graphics mode.
@@ -68,10 +74,14 @@ systemctl reboot
 ### Pin the initial setup, and the layered setup.
 - Check the status of the tree `rpm-ostree status`
 - Pin the branch you want.  Probably 0.
-`sudo ostree admin pin 0`
+```
+sudo ostree admin pin 0
+```
 
 ### To unpin later.
-`sudo ostree admin pin --unpin  0`  
+```
+sudo ostree admin pin --unpin  0
+```
 Note the number will probably be different later.  So look at the layered packages to identify the right branch.  
 
 ## Get Windows VirtIO Drivers.
@@ -80,7 +90,9 @@ sudo wget https://fedorapeople.org/groups/virt/virtio-win/virtio-win.repo -O /et
 ```
 
 ### Change from Stable to latest VirtIO Drivers.
-`sudo nano /etc/yum.repos.d/virtio-win.repo`
+```
+sudo nano /etc/yum.repos.d/virtio-win.repo
+```
 
 then change the latest drivers to enabled.
 ```
@@ -93,9 +105,9 @@ gpgcheck=0
 ```
 
 ## Place the MS Key in /etc/pki/rpm-gpg.
-- `cd /etc/pki/rpm-gpg`
+- ```cd /etc/pki/rpm-gpg```
 
-- `sudo wget https://packages.microsoft.com/keys/microsoft.asc`
+- ```sudo wget https://packages.microsoft.com/keys/microsoft.asc```
 
 ## Install the MS Edge Repo 
 ```
@@ -109,12 +121,15 @@ sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.m
 ```
 
 ## Cleanup the Repo Cache
-`sudo rpm-ostree cleanup -m`
+```
+sudo rpm-ostree cleanup -m
+```
 
 ## Install the following packages: (libosinfo) Already present in Gnome.
 ```
 sudo rpm-ostree install \
 qemu libvirt virt-manager virt-viewer libosinfo edk2-ovmf swtpm guestfs-tools \
+gnome-boxes \
 code code-insiders microsoft-edge-stable \
 distrobox \
 --reboot
@@ -144,10 +159,14 @@ done \
 ```
 
 ## Confirm KVM installation.
-`sudo virt-host-validate qemu`
+```
+sudo virt-host-validate qemu
+```
 
 ## Pin the latest OStree Branch
-`sudo ostree admin pin 0`
+```
+sudo ostree admin pin 0
+```
 
 ## Install pCloud.
 - Download app image file. https://www.pcloud.com/download-free-online-cloud-file-storage.html
@@ -162,7 +181,9 @@ done \
 - Once app launches in settings select 'Create Desktop Entry...' to add the app to the startup menu.
 
 ## Install the Flathub repo.
-`sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo`
+```
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+```
 
 
 ## Install the Flatpaks:
@@ -178,7 +199,9 @@ Create a `~/.config/code-flags.conf` file. Then insert in the file `--enable-fea
 
 ## Auto Update the OS
 ### (Note! There is an error stating that the rpm-ostreed.service is not running.  Yet the machine still seems to auto stage any updates, that Plasma Dicover identifies.  Havn't tried this in Gnome so I can't comment there.)
-`sudo nano /etc/rpm-ostreed.conf`
+```
+sudo nano /etc/rpm-ostreed.conf
+```
 - Change the contents of the file to: (comments added for clarity for future reference)
 ```
 # The 'none' option disables automatic updates. This is the default policy.
@@ -203,12 +226,12 @@ sudo systemctl enable --now rpm-ostreed.service
 ```
 
 - On Reboot run:
-`sudo systemctl enable --now rpm-ostreed-automatic.timer`
+```sudo systemctl enable --now rpm-ostreed-automatic.timer```
 - Finally check that the timer and settings are correct.
-`rpm-ostree status`
+```rpm-ostree status```
 
 ## Gnome Auto Login
-- `sudo nano /etc/gdm/custom.conf`
+- ```sudo nano /etc/gdm/custom.conf```
 - Under the `[daemon]` section, add or modify the following lines:
 ```
 AutomaticLoginEnable=True
@@ -216,7 +239,7 @@ AutomaticLogin=[YourUsername]
 ```
 
 ## Configure Distrobox
-- Place in `~/.config/distrobox/distrobox.conf`
+- Place in ```~/.config/distrobox/distrobox.conf```
 ```
 container_manager="podman"
 container_image_default="registry.fedoraproject.org/fedora-toolbox:39"
@@ -225,7 +248,7 @@ container_image_default="registry.fedoraproject.org/fedora-toolbox:39"
 That way by default created boxes will share a Fedora runtime. This will need to be changes with OS upgrades.  Or go with the openSUSE image, which is rolling.
 
 ## You can create a systemd service to perform distrobox-upgrade automatically, this example shows how to run it daily.
-- `sudo nano ~/.config/systemd/user/distrobox-upgrade.service`
+- ```sudo nano ~/.config/systemd/user/distrobox-upgrade.service```
 
 - Then enter:
 ```
@@ -259,8 +282,9 @@ systemctl --user daemon-reload && systemctl --user enable --now distrobox-upgrad
 ```
 
 ## Install Fluedo Codec Pak
-`sudo rpm-ostree install oneplay-codec-pack-22-1.x86_64.rpm`
-
+```
+sudo rpm-ostree install oneplay-codec-pack-22-1.x86_64.rpm
+```
 
 ## Enable RPM Fusion Repo
 Note adding RPM Fusion and the Gstreamer codecs is unneeded if the Fluendo Codec RPM has been installed.  
@@ -278,12 +302,16 @@ dnf install gstreamer1-devel gstreamer1-plugins-base-tools gstreamer1-doc gstrea
 ```
 
 ## Pin the latest OStree Branch
-`sudo ostree admin pin 0`
+```
+sudo ostree admin pin 0
+```
 
 By pinning the last branch after the codec installation.  We can esure the previous confiurations made are retained.  
 
 ## Create a Sandboxed Fedora Box
-`distrobox create --unshare-all --name sand_fox.`
+```
+distrobox create --unshare-all --name sand_fox.
+```
 
 ## Create a Sandboxed openSUSE Box
 This assumes Distrobox is configured for Fedora by default.
@@ -297,6 +325,8 @@ sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free
 ```
 
 ## Link to MicroSoft Linux Repos
-`https://learn.microsoft.com/en-us/linux/packages`
+```
+https://learn.microsoft.com/en-us/linux/packages
+```
 
 Usefull for refrencing changes to repos.  
