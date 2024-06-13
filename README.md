@@ -23,7 +23,7 @@ Note that the Wayland support configuration for VS Code, is only needed for Gnom
 1024 mb    /boot        fs:ext4
 lvm
   42.24 gb /            fs:btrfs
-  <rest>   /var         fs:btrfs
+  <rest>   /var/home    fs:btrfs
 ```
 LVM encrypted
 
